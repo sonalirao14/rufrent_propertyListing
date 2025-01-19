@@ -9,22 +9,7 @@ export function PropertyTable({ properties, onStatusChange }) {
   const [selectedStatus, setSelectedStatus] = useState({});
   const [updateError, setUpdateError] = useState(null);
   console.log("Property show",properties)
-  
-  // useEffect(() => {
-  //   const fetchStatusOptions = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         '/api/getRecords?tableName=st_current_status&fieldNames=id,status_code&whereCondition=status_category="ADM"'
-  //       );
-  //       const data = await response.json();
-  //       setStatusOptions(data.result || []);
-  //     } catch (error) {
-  //       console.error('Error fetching status codes:', error);
-  //     }
-  //   };
-
-  //   fetchStatusOptions();
-  // }, []);
+ 
 
   useEffect(() => {
     const loadStatusOptions = async () => {

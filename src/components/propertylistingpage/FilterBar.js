@@ -10,65 +10,6 @@ export function FilterBar({ onFilterChange }) {
     community: 'All Community',
   })
 
-  // const [cities, setCities] = useState([])
-  // const [communities, setCommunities] = useState([])
-  // const [statusOptions, setStatusOptions] = useState([])
-  // // const [filteredCommunities, setFilteredCommunities] = useState([])
-
-  // useEffect(() => {
-  //   // Fetch cities
-  //   fetch('/api/getRecords?tableName=st_city&fieldNames=id,name&whereCondition=rstatus=1')
-  //     .then(res => res.json())
-  //     .then(data => setCities(data.result || []))
-  //     .catch(error => {
-  //       console.error('Error fetching cities:', error)
-  //       setCities([])
-  //     })
-
-  //   // // Fetch all communities
-  //   // fetch('/api/getRecords?tableName=st_community&fieldNames=id,name')
-  //   //   .then(res => res.json())
-  //   //   .then(data => setCommunities(data.result || []))
-  //   //   .catch(error => {
-  //   //     console.error('Error fetching communities:', error)
-  //   //     setCommunities([])
-  //   //   })
-
-  //   // Fetch status options
-  //   fetch('/api/getRecords?tableName=st_current_status&fieldNames=id,status_code&whereCondition=status_category="ADM"')
-  //     .then(res => res.json())
-  //     .then(data => setStatusOptions(data.result || []))
-  //     .catch(error => {
-  //       console.error('Error fetching status options:', error)
-  //       setStatusOptions([])
-  //     })
-  // }, [])
-  // useEffect(() => {
-  //   if (filters.city === 'All City') {
-  //     setCommunities([]);
-  //   } else {
-  //     fetch(
-  //       `/api/getRecords?tableName=st_community&fieldNames=id,name&whereCondition=rstatus=1&city_name='${filters.city}'`
-  //     )
-  //       .then((res) => res.json())
-  //       .then((data) => setCommunities(data.result || []))
-  //       .catch((error) => {
-  //         console.error('Error fetching communities:', error);
-  //         setCommunities([]);
-  //       });
-  //   }
-  // }, [filters.city]);
-  // console.log(communities)
-
-
-  // useEffect(() => {
-  //   if (filters.city === 'All City') {
-  //     setFilteredCommunities(communities)
-  //   } else {
-  //     const cityId = cities.find(city => city.name === filters.city)?.id
-  //     setFilteredCommunities(communities.filter(community => community.id === cityId))
-  //   }
-  // }, [filters.city, communities, cities])
 
   // {Updated api calling code using axios}
   const [cities, setCities] = useState([]);
