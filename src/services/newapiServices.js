@@ -1,4 +1,4 @@
-import { getRecords ,fetchPropertiesApi,updatePropertyStatusApi} from "../config/apiRoute";
+import { getRecords ,fetchPropertiesApi,updatePropertyStatusApi, updateUserRecordApi} from "../config/apiRoute";
 
 export const fetchCities = async () => {
   return await getRecords("st_city", "id,name", "rstatus=1");
@@ -36,5 +36,29 @@ export const fetchProperties = async (filters) => {
       return { error: error.message };
     }
   };
+
+  // Fetch users and roles
+export const fetchUsersAndRoles = async () => {
+  try {
+    const users = await getRecords('dy_user', 'id,user_name,role_id,rstatus');
+    const roles = await getRecords('st_role', 'id,role');
+    return { users: users.result, roles: roles.result };
+  } catch (error) {
+    console.error('Error fetching users and roles:', error);
+    return { error: error.message };
+  }
+};
+
+// Update user record (role and rstatus)
+export const updateUserRecord = async (userId, roleId, rstatus) => {
+  try {
+    const response = await updateUserRecordApi(userId, roleId, rstatus);
+    return { success: true, data: response };
+  } catch (error) {
+    console.error('Error updating user record:', error);
+    return { error: error.message };
+  }
+};
+
 
  

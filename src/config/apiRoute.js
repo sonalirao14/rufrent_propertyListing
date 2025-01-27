@@ -86,3 +86,23 @@ export const updatePropertyStatusApi = async (propertyId, newStatus) => {
   }
 };
 
+// Update user record (role and rstatus)
+export const updateUserRecordApi = async (userId, roleId, rstatus) => {
+  const url = `${apiUrl}/updateRecord`;
+  const payload = {
+    tableName: 'dy_user',
+    fieldValuePairs: {
+      ...(roleId && { role_id: roleId }),
+      ...(rstatus !== undefined && { rstatus }),
+    },
+    whereCondition: `id=${userId}`,
+  };
+
+  try {
+    const response = await axios.put(url, payload);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating user record:', error);
+    throw error;
+  }
+};
