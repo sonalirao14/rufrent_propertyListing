@@ -38,9 +38,9 @@ export const getRecords = async (tableName, fieldNames, whereCondition = "") => 
   }
 };
 
-// Fetch properties based on filters
 export const fetchPropertiesApi = async (filters) => {
   const whereConditions = [];
+
   if (filters.status && filters.status !== "All Status") {
     whereConditions.push(`current_status=${filters.status}`);
   }
@@ -56,17 +56,27 @@ export const fetchPropertiesApi = async (filters) => {
     );
   }
 
+  // Ensure `page` and `limit` are always included
+  const page = filters.page ||1;
+  const limit = filters.limit || 6;
+
+  whereConditions.push(`page=${page}`);
+  whereConditions.push(`limit=${limit}`);
+
   const whereClause = whereConditions.length > 0 ? whereConditions.join("&") : "";
   const url = `${apiUrl}/showPropDetails?${whereClause}`;
   
   try {
+    console.log("Fetching Properties with URL:", url);  // Debugging log
     const response = await axios.get(url);
+    console.log("API Response:", response.data); 
     return response.data;
   } catch (error) {
     console.error("Error fetching properties:", error);
     throw error;
   }
 };
+
 
 // Update property status
 export const updatePropertyStatusApi = async (propertyId, newStatus) => {

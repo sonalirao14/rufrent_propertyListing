@@ -13,7 +13,7 @@ import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
 
-export function PropertyTable({ properties, onStatusChange }) {
+export function PropertyTable({ properties, onStatusChange, fetchData, currentPage, totalPages, onPageChange }) {
   const [statusOptions, setStatusOptions] = useState([])
   const [selectedStatus, setSelectedStatus] = useState({})
   const [updateError, setUpdateError] = useState(null)
@@ -45,7 +45,21 @@ export function PropertyTable({ properties, onStatusChange }) {
         return "bg-gray-100 text-gray-800"
     }
   }
+    console.log("Current Page:", currentPage);
+    console.log("Total Pages:", totalPages);
+ 
+  
+  const handlePageChange = (newPage) => {
+    console.log("Changing to page:", newPage);  
 
+    if (newPage > 0 && newPage <= totalPages) {
+        // fetchData({ page: newPage });  
+        onPageChange(newPage)
+    }
+};
+
+
+  
   const handleDelete = (indexToDelete) => {
     setDummyImages((prevImages) => prevImages.filter((_, index) => index !== indexToDelete))
   }
@@ -279,6 +293,42 @@ export function PropertyTable({ properties, onStatusChange }) {
           </div>
         </div>
       )}
+        {/* Pagination Controls */}
+        <div className="flex justify-between p-4">
+    <button
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+    >
+        Previous
+    </button>
+    {/* Page Number Buttons */}
+    <div className="flex space-x-2">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+            <button
+              key={pageNum}
+              onClick={() => handlePageChange(pageNum)}
+              className={`px-3 py-2 rounded ${
+                pageNum === currentPage
+                  ? "bg-blue-700 text-white font-bold"  
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              {pageNum}
+            </button>
+          ))}
+        </div>
+    <span className="text-sm font-semibold">Page {currentPage} of {totalPages}</span>
+
+    <button
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage >= totalPages}
+        className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+    >
+        Next
+    </button>
+</div>
+
     </div>
   )
 }

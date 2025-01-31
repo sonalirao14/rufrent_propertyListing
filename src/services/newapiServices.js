@@ -14,19 +14,28 @@ export const fetchCommunities = async (cityName) => {
   }
   return await getRecords("st_community", "id,name", `rstatus=1`);
 };
+
 export const fetchProperties = async (filters) => {
-    try {
+  try {
       const data = await fetchPropertiesApi(filters);
-      if (!data || !data.results) {
-        throw new Error("Invalid response structure from API");
+
+      if (!data || !data.results || !data.pagination) {
+          throw new Error("Invalid response structure from API");
       }
-      return { results: data.results };
-    } catch (error) {
+
+      console.log("API Response:", data);  
+
+      return { 
+          results: data.results,  
+          pagination: data.pagination  
+      };
+
+  } catch (error) {
       console.error("Error fetching properties:", error);
       return { error: error.message };
-    }
-  };
-  
+  }
+};
+
   export const updatePropertyStatus = async (propertyId, newStatus) => {
     try {
       const response = await updatePropertyStatusApi(propertyId, newStatus);
